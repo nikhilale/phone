@@ -91,3 +91,31 @@ void list_contacts() {
 
     fclose(file);
 }
+void search_contact() {
+    char name[MAX_NAME_LENGTH], phone[MAX_PHONE_LENGTH], search_name[MAX_NAME_LENGTH];
+    int found = 0;
+    FILE *file;
+
+    printf("Enter name to search: ");
+    scanf("%s", search_name);
+
+    file = fopen(PHONEBOOK_FILENAME, "r");
+
+    if (file == NULL) {
+        printf("Error opening file. Please try again.\n");
+        return;
+    }
+     while (fscanf(file, "%s %s", name, phone) != EOF) {
+        if (strcmp(name, search_name) == 0) {
+            printf("Name: %s\nPhone: %s\n", name, phone);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Contact not found.\n");
+    }
+
+    fclose(file);
+}
