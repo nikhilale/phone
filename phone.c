@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_NAME_LENGTH 50
+#define MAX_PHONE_LENGTH 20
+#define PHONEBOOK_FILENAME "phonebook.txt"
+
+typedef struct {
+    char name[MAX_NAME_LENGTH];
+    char phone[MAX_PHONE_LENGTH];
+} Contact;
+
+void add_contact();
+void list_contacts();
+void search_contact();
 
 int main() {
     int choice;
@@ -16,7 +28,46 @@ int main() {
 
         printf("Enter your choice: ");
         scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                add_contact();
+                break;
+            case 2:
+                list_contacts();
+                break;
+            case 3:
+                search_contact();
+                break;
+            case 4:
+                printf("Exiting program.\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
     }
 
     return 0;
+}
+void add_contact() {
+    Contact contact;
+    FILE *file;
+
+    printf("Enter name: ");
+    scanf("%s", contact.name);
+
+    printf("Enter phone number: ");
+    scanf("%s", contact.phone);
+
+    file = fopen(PHONEBOOK_FILENAME, "a");
+
+    if (file == NULL) {
+        printf("Error opening file. Please try again.\n");
+        return;
+    }
+
+    fprintf(file, "%s %s\n", contact.name, contact.phone);
+    fclose(file);
+
+    printf("Contact added successfully.\n");
 }
