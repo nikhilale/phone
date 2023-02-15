@@ -62,6 +62,34 @@ void edit_record(phone_record records[], int count) {
         printf("Record not found\n");
     }
 }
+void delete_record(phone_record records[], int *count) {
+    if (*count == 0) {
+        printf("No records found\n");
+        return;
+    }
+    
+    char name[50];
+    printf("Enter name of record to delete: ");
+    scanf("%s", name);
+    
+    int found = 0;
+    
+    for (int i = 0; i < *count; i++) {
+        if (strcmp(name, records[i].name) == 0) {
+            found = 1;
+            (*count)--;
+            for (int j = i; j < *count; j++) {
+                records[j] = records[j+1];
+            }
+            printf("Record deleted\n");
+            break;
+        }
+    }
+    
+    if (!found) {
+        printf("Record not found\n");
+    }
+}
 
 
 int main() {
@@ -75,6 +103,10 @@ int main() {
         printf("1. Add Record\n");
         printf("2. List Records\n");
         printf("3. Edit Record\n");
+        printf("4. Delete Record\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
 
         switch (choice) {
             case 1:
@@ -86,7 +118,12 @@ int main() {
             case 3:
                 edit_record(records, count);
                 break;
-            
+                case 4:
+                delete_record(records, &count);
+                break;
+            case 5:
+                printf("Goodbye\n");
+                exit(0);
             default:
                 printf("Invalid choice\n");    }
 }
