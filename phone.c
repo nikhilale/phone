@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_NAME_LENGTH 50
-#define MAX_PHONE_LENGTH 20
+#define NAME_LENGTH 50
+#define PHONE_LENGTH 20
 #define PHONEBOOK_FILENAME "phonebook.txt"
 
 typedef struct {
-    char name[MAX_NAME_LENGTH];
-    char phone[MAX_PHONE_LENGTH];
+    char name[NAME_LENGTH];
+    char phone[PHONE_LENGTH];
 } Contact;
 
 void add_contact();
@@ -72,10 +72,9 @@ void add_contact() {
     printf("Contact added successfully.\n");
 }
 void list_contacts() {
-    char name[MAX_NAME_LENGTH], phone[MAX_PHONE_LENGTH];
+    char name[NAME_LENGTH], phone[PHONE_LENGTH];
     FILE *file;
-
-    file = fopen(PHONEBOOK_FILENAME, "r");
+      file = fopen(PHONEBOOK_FILENAME, "r");
 
     if (file == NULL) {
         printf("Error opening file. Please try again.\n");
@@ -92,7 +91,7 @@ void list_contacts() {
     fclose(file);
 }
 void search_contact() {
-    char name[MAX_NAME_LENGTH], phone[MAX_PHONE_LENGTH], search_name[MAX_NAME_LENGTH];
+    char name[NAME_LENGTH], phone[PHONE_LENGTH], search_name[NAME_LENGTH];
     int found = 0;
     FILE *file;
 
