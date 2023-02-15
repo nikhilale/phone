@@ -2,119 +2,44 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NAME_LENGTH 100
-#define PHONE_LENGTH 10
-#define PHONEBOOK_FILENAME "phonebook.txt"
+#define MAX_RECORDS 100
 
 typedef struct {
-    char name[NAME_LENGTH];
-    char phone[PHONE_LENGTH];
-} Contact;
+    char name[50];
+    char number[20];
+} phone_record;
 
-void add_contact();
-void list_contacts();
-void search_contact();
+void add_record(phone_record records[], int *count) {
+    if (*count >= MAX_RECORDS) {
+        printf("Error: maximum number of records reached\n");
+        return;
+    }
+    
+    printf("Enter name: ");
+    scanf("%s", records[*count].name);
+    
+    printf("Enter phone number: ");
+    scanf("%s", records[*count].number);
+    
+    (*count)++;
+}
 
 int main() {
+    phone_record records[MAX_RECORDS];
+    int count = 0;
+    
     int choice;
-
+    
     while (1) {
-        printf("Phonebook Management System\n");
-        printf("===========================\n");
-        printf("1. Add contact\n");
-        printf("2. List contacts\n");
-        printf("3. Search contact\n");
-        printf("4. Quit\n");
-
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
+        printf("\nPhone Management System\n");
+        printf("1. Add Record\n");
         switch (choice) {
             case 1:
-                add_contact();
+                add_record(records, &count);
                 break;
-            case 2:
-                list_contacts();
-                break;
-            case 3:
-                search_contact();
-                break;
-            case 4:
-                printf("Exiting program.\n");
-                exit(0);
             default:
-                printf("Invalid choice. Please try again.\n");
-        }
-    }
-
-    return 0;
+                printf("Invalid choice\n");    }
 }
-void add_contact() {
-    Contact contact;
-    FILE *file;
 
-    printf("Enter name: ");
-    scanf("%s", contact.name);
-
-    printf("Enter phone number: ");
-    scanf("%s", contact.phone);
-
-    file = fopen(PHONEBOOK_FILENAME, "a");
-
-    if (file == NULL) {
-        printf("Error opening file. Please try again.\n");
-        return;
-    }
-
-    fprintf(file, "%s %s\n", contact.name, contact.phone);
-    fclose(file);
-
-    printf("Contact added successfully.\n");
-}
-void list_contacts() {
-    char name[NAME_LENGTH], phone[PHONE_LENGTH];
-    FILE *file;
-      file = fopen(PHONEBOOK_FILENAME, "r");
-
-    if (file == NULL) {
-        printf("Error opening file. Please try again.\n");
-        return;
-    }
-
-    printf("Name\tPhone\n");
-    printf("=====================\n");
-
-    while (fscanf(file, "%s %s", name, phone) != EOF) {
-        printf("%s\t%s\n", name, phone);
-    }
-
-    fclose(file);
-}
-void search_contact() {
-    char name[NAME_LENGTH], phone[PHONE_LENGTH], search_name[NAME_LENGTH];
-    int found = 0;
-    FILE *file;
-
-    printf("Enter name to search: ");
-    scanf("%s", search_name);
-
-    file = fopen(PHONEBOOK_FILENAME, "r");
-
-    if (file == NULL) {
-        printf("Error opening file. Please try again.\n");
-        return;
-    }
-     while (fscanf(file, "%s %s", name, phone) != EOF) {
-        if (strcmp(name, search_name) == 0) {
-            printf("Name: %s\nPhone: %s\n", name, phone);
-            found = 1;
-            break;
-        }
-    }
-
-    if (!found) {
-        printf("Contact not found.\n");
-    }
-
-    fclose(file);
+return 0;
 }
