@@ -23,6 +23,19 @@ void add_record(phone_record records[], int *count) {
     
     (*count)++;
 }
+void list_records(phone_record records[], int count) {
+    if (count == 0) {
+        printf("No records found\n");
+        return;
+    }
+    
+    printf("Name\tPhone Number\n");
+    printf("------------------------\n");
+    
+    for (int i = 0; i < count; i++) {
+        printf("%s\t%s\n", records[i].name, records[i].number);
+    }
+}
 
 int main() {
     phone_record records[MAX_RECORDS];
@@ -33,9 +46,13 @@ int main() {
     while (1) {
         printf("\nPhone Management System\n");
         printf("1. Add Record\n");
+        printf("2. List Records\n");
         switch (choice) {
             case 1:
                 add_record(records, &count);
+                break;
+            case 2:
+                list_records(records, count);
                 break;
             default:
                 printf("Invalid choice\n");    }
