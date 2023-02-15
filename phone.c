@@ -71,3 +71,23 @@ void add_contact() {
 
     printf("Contact added successfully.\n");
 }
+void list_contacts() {
+    char name[MAX_NAME_LENGTH], phone[MAX_PHONE_LENGTH];
+    FILE *file;
+
+    file = fopen(PHONEBOOK_FILENAME, "r");
+
+    if (file == NULL) {
+        printf("Error opening file. Please try again.\n");
+        return;
+    }
+
+    printf("Name\tPhone\n");
+    printf("=====================\n");
+
+    while (fscanf(file, "%s %s", name, phone) != EOF) {
+        printf("%s\t%s\n", name, phone);
+    }
+
+    fclose(file);
+}
