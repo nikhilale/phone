@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NAME_LENGTH 50
-#define PHONE_LENGTH 20
+#define NAME_LENGTH 100
+#define PHONE_LENGTH 10
 #define PHONEBOOK_FILENAME "phonebook.txt"
 
 typedef struct {
